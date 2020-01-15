@@ -5,21 +5,28 @@ namespace Yuna
 {
     public class PlayerMove : ManagedMono
     {
-        Rigidbody2D rb;
-        Vector2 vec = new Vector2(150, 0);
-        [SerializeField] int a;
-        [SerializeField] int b;
+        [SerializeField] Rigidbody2D rb;
+        [SerializeField] int speed = 10;
         private void Start()
         {
-            rb = this.gameObject.GetComponent<Rigidbody2D>();
-        }
-        public override void MUpdate()
-        {
-            a++;
+
         }
         public override void MFixedUpdate()
         {
-            b++;
+            Move();
+        }
+        void Move()
+        {
+            if (Input.GetKey(KeyCode.D))
+            {
+                Vector2 vec = new Vector2(speed, 0);
+                rb.AddForce(vec * 100);
+            }
+            else if (Input.GetKey(KeyCode.A))
+            {
+                Vector2 vec = new Vector2(speed, 0);
+                rb.AddForce(vec * -100);
+            }
         }
     }
 }
