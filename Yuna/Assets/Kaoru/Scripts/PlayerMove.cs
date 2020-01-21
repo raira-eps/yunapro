@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace Yuna
+namespace Yuna.Player
 {
     public class PlayerMove : ManagedMono
     {
         [SerializeField] Rigidbody2D rb;
-        [SerializeField] int speed = 10;
+        [SerializeField] float speed = 10;
+        [SerializeField] float jumpForce = 10;
         private void Start()
         {
 
@@ -26,6 +27,11 @@ namespace Yuna
             {
                 Vector2 vec = new Vector2(speed, 0);
                 rb.AddForce(vec * -100);
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Vector2 vec = new Vector2(0, jumpForce);
+                rb.AddForce(vec * 100);
             }
         }
     }

@@ -4,9 +4,13 @@ using UnityEngine;
 
 namespace Yuna
 {
+    /// <summary>
+    /// トロッコシーンでマップ自体を動かすためのクラス
+    /// </summary>
     public class MapMove : ManagedMono
     {
         Transform trans;
+        /// <summary>マップの動くスピード</summary>
         [SerializeField] float speed;
         private void Start()
         {
