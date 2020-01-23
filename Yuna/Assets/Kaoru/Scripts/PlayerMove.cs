@@ -6,32 +6,58 @@ namespace Yuna.Player
     public class PlayerMove : ManagedMono
     {
         [SerializeField] Rigidbody2D rb;
-        [SerializeField] float speed = 10;
-        [SerializeField] float jumpForce = 10;
-        private void Start()
-        {
-
-        }
+        /// <summary>トロッコの左右移動スピード：デフォルト値100</summary>
+        [SerializeField] float speed=10;
+        /// <summary>トロッコのジャンプ上昇値：デフォルト値100</summary>
+        [SerializeField] float jumpForce = 100;
+        private bool isGround = true;
+        private bool jumpProp = true;
         public override void MFixedUpdate()
         {
             Move();
         }
+        void StateManager()
+        {
+
+        }
         void Move()
         {
-            if (Input.GetKey(KeyCode.D))
+            Vector2 vec = Vector2.zero;
+            Vector2 jump = Vector2.zero;
+            if (isGround)//接地中
             {
-                Vector2 vec = new Vector2(speed, 0);
+                jumpProp = true;
+                if (Input.GetKey(KeyCode.D))
+                {
+                    vec = new Vector2(speed, 0);
+                }
+                else if (Input.GetKey(KeyCode.A))
+                {
+                    vec = new Vector2(-speed, 0);
+                }
                 rb.AddForce(vec * 100);
             }
-            else if (Input.GetKey(KeyCode.A))
+            else//空中(左右移動スピード落とす？)
             {
-                Vector2 vec = new Vector2(speed, 0);
-                rb.AddForce(vec * -100);
+                
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (jumpProp)
             {
-                Vector2 vec = new Vector2(0, jumpForce);
-                rb.AddForce(vec * 100);
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    isGround = false;
+                    jump = new Vector2(0, jumpForce);
+                    jumpProp = false;
+                }
+            }
+
+            rb.AddForce((vec + jump) * 100);
+        }
+        private void OnCollisionEnter2D(Collision2D c)
+        {
+            if (c.gameObject.tag == "Ground")
+            {
+                isGround = true;
             }
         }
     }

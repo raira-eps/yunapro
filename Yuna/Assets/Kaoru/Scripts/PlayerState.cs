@@ -43,20 +43,28 @@ namespace Yuna.Player
         public abstract string getStateName();
     }
 
-    //↓↓↓以下状態クラス↓↓↓
+    //↓↓↓状態クラス↓↓↓
 
-    public class IsGround : PlayerState
+    public class PlayerDefalt : PlayerState
     {
         public override string getStateName()
         {
-            return "IsGround";
+            return "Defalt";
         }
     }
-    public class IsSky : PlayerState
+
+    public class PlayerJump : PlayerState
     {
         public override string getStateName()
         {
-            return "IsSky";
+            return "Jump";
+        }
+    }
+    public class PlayerDrive : PlayerState
+    {
+        public override string getStateName()
+        {
+            return "Drive";
         }
     }
 }
