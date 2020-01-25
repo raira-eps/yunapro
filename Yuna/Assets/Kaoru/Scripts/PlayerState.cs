@@ -44,7 +44,7 @@ namespace Yuna.Player
     }
 
     //↓↓↓状態クラス↓↓↓
-
+    //呼べば状態変わる
     public class PlayerDefalt : PlayerState
     {
         public override string getStateName()
